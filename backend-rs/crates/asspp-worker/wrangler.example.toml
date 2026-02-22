@@ -1,0 +1,33 @@
+name = "asspp-worker"
+main = "build/worker/shim.mjs"
+compatibility_date = "2025-01-01"
+
+[build]
+command = "cd ../../../frontend && npm ci && npm run build && cd ../backend-rs/crates/asspp-worker && cargo install -q worker-build && worker-build --release"
+
+# Static assets (frontend SPA)
+[assets]
+directory = "../../../frontend/dist"
+binding = "ASSETS"
+
+# R2 bucket for IPA storage
+[[r2_buckets]]
+binding = "IPA_BUCKET"
+bucket_name = "asspp-ipa"
+
+# KV namespace for task metadata
+[[kv_namespaces]]
+binding = "TASK_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Durable Objects for Wisp WebSocket proxy
+[[durable_objects.bindings]]
+name = "WISP_PROXY"
+class_name = "WispProxy"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["WispProxy"]
+
+[vars]
+PUBLIC_BASE_URL = ""

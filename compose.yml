@@ -1,6 +1,6 @@
 services:
   asspp:
-    image: ghcr.io/lakr233/assppweb:latest
+    build: .
     ports:
       - "8080:8080"
     volumes:
@@ -9,6 +9,11 @@ services:
       - DATA_DIR=/data
       - PORT=8080
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/api/settings"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     logging:
       driver: "json-file"
       options:

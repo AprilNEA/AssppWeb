@@ -1,0 +1,24 @@
+[package]
+name = "asspp-standalone"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+asspp-core = { path = "../asspp-core" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+base64 = { workspace = true }
+plist = { workspace = true }
+axum = { version = "0.8", features = ["ws"] }
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7", features = ["io"] }
+tokio-tungstenite = "0.26"
+reqwest = { version = "0.12", features = ["stream", "json"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["fs", "cors", "set-header"] }
+zip = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+futures-util = "0.3"
+urlencoding = "2"
